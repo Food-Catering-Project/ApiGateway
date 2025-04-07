@@ -32,18 +32,35 @@ public class ApiGatewayConfig {
     @Bean
     public CorsWebFilter corsFilter() {
         CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.addAllowedOrigin("*"); // Change this for production
+        corsConfig.addAllowedOrigin("http://localhost:5173"); // Change this for production
         corsConfig.addAllowedMethod(HttpMethod.GET);
         corsConfig.addAllowedMethod(HttpMethod.POST);
         corsConfig.addAllowedMethod(HttpMethod.PUT);
         corsConfig.addAllowedMethod(HttpMethod.DELETE);
         corsConfig.addAllowedHeader("*");
+          corsConfig.setAllowCredentials(false); // No JWT or cookies, so no need for credentials
+
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfig);
 
         return new CorsWebFilter(source);
     }
+
+//    @Bean
+//    public CorsWebFilter corsFilter() {
+//        CorsConfiguration corsConfig = new CorsConfiguration();
+//        corsConfig.addAllowedOrigin("http://localhost:5173"); // Your frontend URL
+//        corsConfig.addAllowedMethod("*"); // Allows GET, POST, PUT, DELETE
+//        corsConfig.addAllowedHeader("*"); // Allows all headers
+//        corsConfig.setAllowCredentials(false); // No JWT or cookies, so no need for credentials
+//
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", corsConfig);
+//
+//        return new CorsWebFilter(source);
+//    }
+
 
 }
 
